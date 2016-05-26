@@ -2,6 +2,10 @@
   $.fn.clickToggle = function(options) {
     var $clickedElement = this;
 
+    if ($clickedElement.data('clickToggleAttached')) {
+      return this;
+    }
+
     options = $.extend({
       target: $clickedElement.next(),
       targetClass: 'opened',
@@ -58,6 +62,8 @@
         }
       }
     });
+
+    $clickedElement.data('clickToggleAttached', true);
 
     return this;
   };
