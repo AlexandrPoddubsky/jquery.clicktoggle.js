@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            padding: 0 10px 100px 10px;
+            font-family: Tahoma, sans-serif;
+            font-size: 12px;
+        }
+        h1 {
+            margin-top: 30px;
+        }
+        .js-link {
+            text-decoration: none;
+            border-bottom: 1px dotted;
+        }
+        .code {
+            margin-top: 10px;
+            padding: 10px 12px;
+            white-space: pre-line;
+            font-family: Consolas, monospace;
+            border: 1px solid #CECECE;
+            background: #F5F5F5;
+        }
+        .hide {
+            display: none;
+        }
+        .opened,
+        .expanded,
+        .opened .hide,
+        .expanded .hide {
+            display: block;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="jquery.clicktoggle.js"></script>
+    <script>
+        $(function() {
+            // Example 1
+            $('#example1-trigger').clickToggle({
+                target: '#example1-target'
+            });
+
+            // Example 2
+            $('#example2-trigger').clickToggle({
+                target: '#example2-target'
+            });
+
+            // Example 3
+            $('#example3-trigger').clickToggle({
+                target: '#example3-target',
+                autoClose: true
+            });
+
+            // Example 4
+            $('#example4-trigger').clickToggle({
+                target: '#example4-target',
+                autoClose: true
+            });
+
+            // Example 5
+            $('#example5-trigger').clickToggle({
+                target: '#example5-target',
+                autoClose: true,
+                targetClass: 'expanded'
+            });
+
+            // Example 6
+            $('#example6-trigger').clickToggle({
+                target: '#example6-target',
+                autoClose: true,
+                clickedClass: 'clicked'
+            });
+
+            // Example 7
+            $('#example7-trigger').clickToggle({
+                target: '#example7-target',
+                autoClose: true,
+                openCallback: function() { alert('Open'); },
+                closeCallback: function() { alert('Close'); }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Example 1</h1>
+    <p>clicked element outside target</p>
+    <a href="#" id="example1-trigger" class="js-link">Show descrition</a>
+    <div id="example1-target" class="hide code">
+        target: '#example1-target'
+    </div>
+
+    <h1>Example 2</h1>
+    <p>clicked element inside target</p>
+    <div id="example2-target">
+        <a href="#" id="example2-trigger" class="js-link">Show descrition</a>
+        <div class="hide code">
+            target: '#example2-target'
+        </div>
+    </div>
+
+    <h1>Example 3</h1>
+    <p>clicked element outside target + auto close</p>
+    <a href="#" id="example3-trigger" class="js-link">Show descrition</a>
+    <div id="example3-target" class="hide code">
+        target: '#example3-target',
+        autoClose: true
+    </div>
+
+    <h1>Example 4</h1>
+    <p>clicked element inside target + auto close</p>
+    <a href="#" id="example4-trigger" class="js-link">Show descrition</a>
+    <div id="example4-target" class="hide code">
+        target: '#example4-target',
+        autoClose: true
+    </div>
+
+    <h1>Example 5</h1>
+    <p>custom target class</p>
+    <a href="#" id="example5-trigger" class="js-link">Show descrition</a>
+    <div id="example5-target" class="hide code">
+        target: '#example5-target',
+        autoClose: true,
+        targetClass: 'expanded'
+    </div>
+
+    <h1>Example 6</h1>
+    <p>cusomt clicked class</p>
+    <a href="#" id="example6-trigger" class="js-link">Show descrition</a>
+    <div id="example6-target" class="hide code">
+        target: '#example6-target',
+        autoClose: true,
+        clickedClass: 'clicked'
+    </div>
+
+    <h1>Example 7</h1>
+    <p>openCallback and closeCallback</p>
+    <a href="#" id="example7-trigger" class="js-link">Show descrition</a>
+    <div id="example7-target" class="hide code">
+        target: '#example7-target',
+        autoClose: true,
+        openCallback: function() { alert('Open'); },
+        closeCallback: function() { alert('Close'); }
+    </div>
+</body>
+</html>
