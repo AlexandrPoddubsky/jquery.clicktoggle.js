@@ -15,11 +15,12 @@
 
     var documentClick = function(event) {
       var $eventTarget = $(event.target);
-      if (!$eventTarget.is($clickedElement)) {
+      if ($eventTarget.closest($clickedElement).length == 0 && $eventTarget.closest($targetElement).length == 0) {
         $clickedElement.click();
       }
     };
 
+    // Clicked element click handler
     $clickedElement.on('click', function(event) {
       event.preventDefault();
 
@@ -33,7 +34,7 @@
         if (options.autoClose) {
           // Used setTimeout that event document.click not fire right after attached
           setTimeout(function() {
-            $(document).on('click', {attachedElement:$clickedElement}, documentClick);
+            $(document).on('click', documentClick);
           }, 10);
         }
 
