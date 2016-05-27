@@ -1,4 +1,7 @@
 (function($) {
+  var documentClickAttached = false;
+  var autoCloseElements = [];
+
   $.fn.clickToggle = function(options) {
     var $clickedElement = this;
 
@@ -17,15 +20,8 @@
 
     var $targetElement = $(options.target);
 
-    var documentClick = function(event) {
-      var $eventTarget = $(event.target);
-      if ($eventTarget.closest($clickedElement).length == 0 && $eventTarget.closest($targetElement).length == 0) {
-        $clickedElement.click();
-      }
-    };
-
     // Clicked element click handler
-    $clickedElement.on('click', function(event) {
+    $clickedElement.on('click', function(event, stopPropagation) {
       event.preventDefault();
 
       // Open
@@ -33,13 +29,6 @@
         $targetElement.addClass(options.targetClass);
         if (options.clickedClass) {
           $clickedElement.addClass(options.clickedClass);
-        }
-
-        if (options.autoClose) {
-          // Used setTimeout that event document.click not fire right after attached
-          setTimeout(function() {
-            $(document).on('click', documentClick);
-          }, 10);
         }
 
         if (options.openCallback) {
@@ -53,15 +42,47 @@
           $clickedElement.removeClass(options.clickedClass);
         }
 
-        if (options.autoClose) {
-          $(document).off('click', documentClick);
-        }
-
         if (options.closeCallback) {
           options.closeCallback();
         }
       }
+
+      if (stopPropagation) {
+        event.stopPropagation();
+      }
     });
+
+    // Document click handler
+    if (options.autoClose && !documentClickAttached) {
+      $(document).on('click', function(event) {
+        var $eventTarget = $(event.target);
+        var $clickedElement;
+        var $targetElement;
+        var targetClass;
+
+        for (var i = 0; i < autoCloseElements.length; i++) {
+          $clickedElement = autoCloseElements[i].clickedElement;
+          $targetElement = autoCloseElements[i].targetElement;
+          targetClass = autoCloseElements[i].targetClass;
+
+          if ($targetElement.hasClass(targetClass)
+          && $eventTarget.closest($clickedElement).length == 0
+          && $eventTarget.closest($targetElement).length == 0) {
+            $clickedElement.trigger('click', [true]);
+          }
+        }
+      });
+
+      documentClickAttached = true;
+    }
+
+    if (options.autoClose) {
+      autoCloseElements.push({
+        clickedElement: $clickedElement,
+        targetElement: $targetElement,
+        targetClass: options.targetClass
+      });
+    }
 
     $clickedElement.data('clickToggleAttached', true);
 

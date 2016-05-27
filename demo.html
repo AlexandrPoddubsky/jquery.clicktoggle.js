@@ -79,6 +79,17 @@
                 openCallback: function() { alert('Open'); },
                 closeCallback: function() { alert('Close'); }
             });
+
+            // Example 8
+            $('#example8-trigger').clickToggle({
+                target: '#example8-target'
+            });
+
+            // Example 9
+            $('#example9-trigger').clickToggle({
+                target: '#example9-target',
+                autoClose: true
+            });
         });
     </script>
 </head>
@@ -141,6 +152,21 @@
         autoClose: true,
         openCallback: function() { alert('Open'); },
         closeCallback: function() { alert('Close'); }
+    </div>
+
+    <h1>Example 8</h1>
+    <p>pre-open</p>
+    <a href="#" id="example8-trigger" class="js-link">Show descrition</a>
+    <div id="example8-target" class="hide code opened">
+        target: '#example8-target',
+    </div>
+
+    <h1>Example 9</h1>
+    <p>pre-open + auto close</p>
+    <a href="#" id="example9-trigger" class="js-link">Show descrition</a>
+    <div id="example9-target" class="hide code opened">
+        target: '#example9-target',
+        autoClose: true
     </div>
 </body>
 </html>
